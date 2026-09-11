@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#fffaf7">
+  <title>Мальчик или девочка?</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="screen-page">
+  <main class="screen-wrap">
+    <header class="screen-title">
+      <div class="small">Baby shower · Голосование</div>
+      <h1>Мальчик или девочка?</h1>
+    </header>
+
+    <section class="score-grid">
+      <article id="boyCard" class="score-card boy">
+        <div class="score-icon">👦</div>
+        <div class="score-label">Мальчик</div>
+        <div id="boyScore" class="score-number">0</div>
+        <div class="score-currency">сом</div>
+      </article>
+
+      <article id="girlCard" class="score-card girl">
+        <div class="score-icon">👧</div>
+        <div class="score-label">Девочка</div>
+        <div id="girlScore" class="score-number">0</div>
+        <div class="score-currency">сом</div>
+      </article>
+    </section>
+
+    <div class="progress" aria-hidden="true">
+      <div id="boyProgress" class="progress-boy" style="width:50%"></div>
+      <div id="girlProgress" class="progress-girl" style="width:50%"></div>
+    </div>
+  </main>
+
+  <script type="module" src="./screen.js"></script>
+</body>
+</html>
