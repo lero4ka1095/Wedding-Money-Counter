@@ -62,15 +62,15 @@ onValue(paymentsRef, (snap) => {
   if (boy > girl) {
     leader.textContent = "Впереди Андреевич";
     leader.className = "leader-status boy-leading";
-    difference.textContent = `Разница ${fmt.format(boy - girl)} сом`;
+    difference.innerHTML = `<span class="difference-label">Разница</span><strong class="difference-amount">${fmt.format(boy - girl)} сом</strong>`;
   } else if (girl > boy) {
     leader.textContent = "Впереди Андреевна";
     leader.className = "leader-status girl-leading";
-    difference.textContent = `Разница ${fmt.format(girl - boy)} сом`;
+    difference.innerHTML = `<span class="difference-label">Разница</span><strong class="difference-amount">${fmt.format(girl - boy)} сом</strong>`;
   } else {
     leader.textContent = "Пока ничья";
     leader.className = "leader-status";
-    difference.textContent = "Счёт равный";
+    difference.innerHTML = '<span class="difference-label">Счёт</span><strong class="difference-amount">равный</strong>';
   }
 
   if (initialized) {
