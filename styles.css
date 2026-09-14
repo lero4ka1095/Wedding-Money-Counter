@@ -1010,6 +1010,56 @@ button, input { font: inherit; }
   .leader-panel .leader-diamond { width: 70px; margin-bottom: 14px; }
 }
 
+/* 16:9 TV composition (including a 1920×1080 HDMI screen). */
+@media (min-width: 1000px) and (min-aspect-ratio: 4 / 3) {
+  .night-wrap {
+    width: 80vw;
+    height: 80dvh;
+    margin: 10dvh auto;
+    padding: 0;
+    grid-template-rows: min(13dvh, 120px) min(56dvh, 500px) min(6dvh, 52px);
+    align-content: space-between;
+  }
+
+  .night-header { min-height: 0; height: min(13dvh, 120px); padding: 0; }
+  .night-header .couple-names { font-size: clamp(48px, 4vw, 78px); }
+  .night-header .contest-name { margin-top: 7px; font-size: clamp(58px, 4.6vw, 94px); }
+
+  .night-board {
+    width: 100%;
+    height: min(56dvh, 500px);
+    grid-template-columns: minmax(0, 1fr) min(15vw, 270px) minmax(0, 1fr);
+    gap: clamp(18px, 1.3vw, 26px);
+    align-items: stretch;
+  }
+
+  .night-card {
+    width: min(100%, 400px);
+    height: 100%;
+    min-height: 0;
+    padding: clamp(8px, 1.1vh, 12px) clamp(12px, 1.2vw, 16px);
+  }
+  .night-card.boy { justify-self: start; }
+  .night-card.girl { justify-self: end; }
+  .night-card .card-prefix { margin-top: clamp(8px, 1.2vh, 14px); font-size: clamp(12px, .9vw, 17px); }
+  .night-card .score-label { margin-top: 6px; font-size: clamp(36px, 2.7vw, 52px); }
+  .score-gender { height: clamp(30px, 2.1vw, 40px); margin-top: 5px; }
+  .score-gender svg { width: clamp(28px, 1.9vw, 38px); height: clamp(28px, 1.9vw, 38px); }
+  .night-card .score-number { margin-top: clamp(8px, 1.2vh, 12px); font-size: clamp(64px, 4.7vw, 90px); }
+  .night-card .score-currency { margin-top: clamp(14px, 1.9vh, 22px); font-size: clamp(17px, 1.3vw, 24px); }
+  .night-card .vote-call { margin-top: clamp(12px, 1.6vh, 18px); padding: 7px 14px; font-size: clamp(10px, .9vw, 16px); }
+  .payment-qr { width: min(48%, 22dvh, 192px); margin-top: 7px; padding: 4px; }
+
+  .leader-panel { gap: clamp(16px, 2.4vh, 30px); padding-inline: 8px; }
+  .leader-panel .leader-diamond { width: clamp(58px, 4vw, 76px); margin-bottom: clamp(8px, 1.2vh, 14px); }
+  .leader-panel .leader-status { font-size: clamp(28px, 2.3vw, 44px); }
+  .leader-panel .leader-difference { padding-top: 12px; font-size: clamp(14px, 1.1vw, 20px); }
+
+  .last-payment { align-self: start; margin: 0 auto; min-height: 0; padding: 8px 16px; }
+  .payment-label { font-size: clamp(11px, .9vw, 16px); }
+  .payment-amount { font-size: clamp(18px, 1.45vw, 28px); }
+}
+
 @media (min-width: 901px) and (max-height: 800px) {
   .night-wrap { padding-block: 5dvh; }
   .night-header .couple-names { font-size: 40px; }
@@ -1026,9 +1076,9 @@ button, input { font: inherit; }
   .last-payment { margin-top: 8px; min-height: 34px; padding: 6px 12px; }
 }
 
-/* Exact screen safe area: 15% on either side and 10% above/below at every size. */
+/* Exact screen safe area: 10% on either side and 10% above/below at every size. */
 .night-wrap {
-  width: 70vw;
+  width: 80vw;
   max-width: none;
   height: 80dvh;
   min-height: 0;
@@ -1043,7 +1093,7 @@ button, input { font: inherit; }
 
 @media (max-width: 900px) {
   .night-wrap {
-    width: 70vw;
+    width: 80vw;
     height: auto;
     min-height: 80dvh;
     margin: 10dvh auto;
@@ -1088,4 +1138,15 @@ button, input { font: inherit; }
 @media (min-width: 901px) and (max-height: 800px) {
   .night-card { padding-bottom: 14px; }
   .payment-qr { margin-top: 8px; }
+}
+
+/* Keep the FHD grid tracks after every generic responsive override. */
+@media (min-width: 1000px) and (min-aspect-ratio: 4 / 3) {
+  .night-wrap {
+    width: 80vw;
+    height: 80dvh;
+    margin: 10dvh auto;
+    grid-template-rows: min(13dvh, 120px) min(56dvh, 500px) min(6dvh, 52px);
+    align-content: space-between;
+  }
 }
