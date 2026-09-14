@@ -6,12 +6,15 @@ const fmt = new Intl.NumberFormat("ru-RU");
 
 let previous = { boy: 0, girl: 0 };
 let initialized = false;
+let collectionOpen = true;
 
 onValue(collectionOpenRef, (snap) => {
   const isOpen = snap.val() !== false;
   const status = document.getElementById("collectionStatus");
   status.textContent = isOpen ? "Сбор открыт" : "Сбор закрыт";
   status.className = `collection-status ${isOpen ? "open" : "closed"}`;
+  collectionOpen = isOpen;
+  document.body.classList.toggle("collection-finished", !isOpen);
 });
 
 function animate(id) {
@@ -35,6 +38,7 @@ onValue(paymentsRef, (snap) => {
 
   document.getElementById("boyScore").textContent = fmt.format(boy);
   document.getElementById("girlScore").textContent = fmt.format(girl);
+  updateClosingSummary(boy, girl);
 
   const lastPayment = payments
     .filter((payment) => (payment.side === "boy" || payment.side === "girl") && payment.type !== "adjustment")
@@ -77,3 +81,26 @@ onValue(paymentsRef, (snap) => {
   previous = { boy, girl };
   initialized = true;
 });
+
+function updateClosingSummary(boy, girl) {
+  const card = document.getElementById("celebrationCard");
+  const winner = document.getElementById("celebrationWinner");
+  const message = document.getElementById("celebrationMessage");
+  document.getElementById("finalBoyTotal").textContent = `${fmt.format(boy)} сом`;
+  document.getElementById("finalGirlTotal").textContent = `${fmt.format(girl)} сом`;
+  document.getElementById("finalTotal").textContent = `${fmt.format(boy + girl)} сом`;
+
+  if (boy > girl) {
+    card.dataset.winner = "boy";
+    message.textContent = "Судя по сборам ваших гостей, у вас будет";
+    winner.textContent = "мальчик!";
+  } else if (girl > boy) {
+    card.dataset.winner = "girl";
+    message.textContent = "Судя по сборам ваших гостей, у вас будет";
+    winner.textContent = "девочка!";
+  } else {
+    card.dataset.winner = "tie";
+    message.textContent = "Судя по сборам ваших гостей,";
+    winner.textContent = "пока ничья!";
+  }
+}
