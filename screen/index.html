@@ -35,6 +35,20 @@
       <strong id="lastPaymentAmount" class="payment-amount">—</strong>
     </footer>
   </main>
+  <section id="closingCelebration" class="closing-celebration" aria-live="polite" aria-label="Итоги голосования">
+    <div class="celebration-fireworks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div id="celebrationCard" class="celebration-card" data-winner="tie">
+      <div class="celebration-kicker">Сбор завершён</div>
+      <h2>Ура!</h2>
+      <p id="celebrationMessage">Судя по сборам ваших гостей, у вас будет</p>
+      <strong id="celebrationWinner" class="celebration-winner">пока ничья</strong>
+      <div class="celebration-stats">
+        <div><span>За мальчика</span><b id="finalBoyTotal">0 сом</b></div>
+        <div><span>За девочку</span><b id="finalGirlTotal">0 сом</b></div>
+        <div class="final-total"><span>Всего</span><b id="finalTotal">0 сом</b></div>
+      </div>
+    </div>
+  </section>
   <script type="module" src="./screen.js"></script>
 </body>
 </html>

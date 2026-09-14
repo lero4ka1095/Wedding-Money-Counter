@@ -523,7 +523,7 @@ button, input { font: inherit; }
 
 /* Final TV score-card composition: one clear clothing icon and a gender icon. */
 .night-wrap {
-  --night-footer-space: clamp(180px, 18vh, 200px);
+  --night-footer-space: clamp(150px, 15vh, 170px);
   min-height: 100vh;
   display: grid;
   grid-template-rows: var(--night-footer-space) minmax(0, 1fr) var(--night-footer-space);
@@ -728,7 +728,7 @@ button, input { font: inherit; }
 .night-header .couple-names {
   white-space: nowrap;
   letter-spacing: .01em;
-  font-size: clamp(64px, 5.5vw, 108px);
+  font-size: clamp(60px, 4.6vw, 92px);
   line-height: .78;
 }
 
@@ -736,7 +736,7 @@ button, input { font: inherit; }
 
 .night-header .contest-name {
   margin-top: 12px;
-  font-size: clamp(68px, 6vw, 124px);
+  font-size: clamp(62px, 5.2vw, 110px);
 }
 
 .night-header .contest-name,
@@ -801,18 +801,131 @@ button, input { font: inherit; }
 
 /* Short desktop displays keep all card content visible and preserve the bottom zone. */
 @media (min-width: 901px) and (max-height: 800px) {
-  .night-wrap { --night-footer-space: 100px; }
+  .night-wrap { --night-footer-space: 90px; }
   .night-header .couple-names { font-size: 46px; }
   .night-header .contest-name { margin-top: 6px; font-size: 60px; }
-  .night-card { padding-block: 14px; }
-  .night-card .score-label { margin-top: 8px; font-size: 46px; }
-  .score-gender { margin-top: 8px; height: 40px; }
-  .score-gender svg { width: 38px; height: 38px; }
-  .night-card .score-number { margin-top: 14px; font-size: 88px; }
-  .night-card .score-currency { margin-top: 24px; }
-  .night-card .vote-call { margin-top: 26px; }
+  .night-card { width: min(100%, 360px); padding: 10px 14px; }
+  .night-card .score-label { margin-top: 6px; font-size: 42px; }
+  .score-gender { margin-top: 6px; height: 36px; }
+  .score-gender svg { width: 33px; height: 33px; }
+  .night-card .score-number { margin-top: 10px; font-size: 76px; }
+  .night-card .score-currency { margin-top: 18px; font-size: 19px; }
+  .night-card .vote-call { margin-top: 20px; font-size: 12px; }
   .payment-qr { width: 50%; margin-top: 10px; padding: 4px; }
 }
+
+/* TV safe area: never create a second page below the visible screen. */
+@media (min-width: 901px) {
+  .night-screen {
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .night-wrap {
+    height: 100dvh;
+    min-height: 0;
+    padding-bottom: 0;
+  }
+
+  .night-board { min-height: 0; }
+}
+
+/* Full-HD and other short landscape displays use a denser, still readable layout. */
+@media (min-width: 901px) and (min-height: 801px) and (max-height: 1000px) {
+  .night-wrap { --night-footer-space: 112px; }
+  .night-header .couple-names { font-size: 54px; }
+  .night-header .contest-name { margin-top: 8px; font-size: 72px; }
+  .night-card { width: min(100%, 400px); padding: 12px 16px; }
+  .night-card .score-label { font-size: 48px; }
+  .score-gender { height: 40px; margin-top: 7px; }
+  .score-gender svg { width: 36px; height: 36px; }
+  .night-card .score-number { margin-top: 12px; font-size: 92px; }
+  .night-card .score-currency { margin-top: 24px; }
+  .night-card .vote-call { margin-top: 24px; }
+  .payment-qr { width: 50%; margin-top: 10px; }
+}
+
+/* 4:3 projectors and similar narrow landscape screens keep all three panels legible. */
+@media (min-width: 901px) and (max-aspect-ratio: 4 / 3) {
+  .night-board {
+    grid-template-columns: minmax(280px, 1fr) minmax(230px, 270px) minmax(280px, 1fr);
+    gap: 18px;
+  }
+  .night-card { width: min(100%, 360px); }
+  .leader-panel { padding-inline: 10px; }
+}
+
+.night-header .collection-status.closed {
+  color: #ff6f8f;
+  background: rgba(82, 10, 30, .72);
+  border-color: rgba(255, 105, 139, .68);
+  box-shadow: 0 0 18px rgba(255, 70, 120, .2);
+}
+
+/* Closing result, shown on the TV as soon as the collection is closed. */
+.closing-celebration {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: clamp(18px, 4vw, 72px);
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .45s ease;
+  background: radial-gradient(circle at center, rgba(55, 29, 8, .28), rgba(1, 2, 5, .87));
+}
+
+.collection-finished .closing-celebration { opacity: 1; pointer-events: auto; }
+
+.celebration-card {
+  position: relative;
+  width: min(820px, 92vw);
+  padding: clamp(30px, 4vw, 68px);
+  overflow: hidden;
+  text-align: center;
+  color: #fff9ef;
+  border: 2px solid #efc466;
+  border-radius: clamp(28px, 4vw, 52px);
+  background: linear-gradient(145deg, rgba(19, 19, 22, .97), rgba(49, 25, 39, .94));
+  box-shadow: 0 0 28px rgba(239, 196, 102, .52), 0 24px 70px rgba(0, 0, 0, .62), inset 0 0 70px rgba(239, 196, 102, .1);
+}
+
+.celebration-card::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 1px solid rgba(255, 231, 161, .38);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.celebration-card > * { position: relative; z-index: 1; }
+.celebration-kicker { color: #ffe3a1; font-size: clamp(14px, 1.35vw, 22px); font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+.celebration-card h2 { margin: 8px 0 0; color: #ffe3a1; font-family: "Cormorant Infant", Georgia, serif; font-size: clamp(74px, 8vw, 142px); line-height: .7; text-shadow: 0 0 20px rgba(239, 196, 102, .75); }
+.celebration-card p { margin: clamp(24px, 3vh, 38px) 0 0; font-family: "Cormorant Infant", Georgia, serif; font-size: clamp(28px, 3vw, 50px); font-weight: 700; line-height: .95; }
+.celebration-winner { display: block; margin-top: 8px; font-family: "Cormorant Infant", Georgia, serif; font-size: clamp(56px, 6vw, 104px); line-height: .8; text-transform: uppercase; text-shadow: 0 0 22px currentColor; }
+.celebration-card[data-winner="boy"] .celebration-winner { color: #75cfff; }
+.celebration-card[data-winner="girl"] .celebration-winner { color: #ff87c4; }
+.celebration-card[data-winner="tie"] .celebration-winner { color: #ffe3a1; }
+
+.celebration-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(10px, 1.6vw, 22px); margin-top: clamp(30px, 4vh, 52px); }
+.celebration-stats div { padding: clamp(13px, 1.5vw, 22px) 10px; border: 1px solid rgba(255, 255, 255, .18); border-radius: 18px; background: rgba(0, 0, 0, .24); }
+.celebration-stats span,.celebration-stats b { display: block; }
+.celebration-stats span { color: #e8dfd0; font-size: clamp(12px, 1.1vw, 18px); font-weight: 800; text-transform: uppercase; }
+.celebration-stats b { margin-top: 8px; font-family: "Cormorant Infant", Georgia, serif; font-size: clamp(28px, 2.8vw, 48px); line-height: .8; }
+.celebration-stats div:first-child b { color: #75cfff; }.celebration-stats div:nth-child(2) b { color: #ff87c4; }.celebration-stats .final-total b { color: #ffe3a1; }
+
+.celebration-fireworks { position: absolute; inset: 0; pointer-events: none; }
+.celebration-fireworks i { position: absolute; left: 50%; top: 50%; width: 10px; height: 10px; border-radius: 50%; background: #ffe3a1; opacity: 0; box-shadow: 0 0 10px currentColor; }
+.celebration-fireworks i:nth-child(3n) { background: #75cfff; }.celebration-fireworks i:nth-child(3n + 1) { background: #ff87c4; }
+.collection-finished .celebration-fireworks i { animation: firework 1.65s ease-out infinite; }
+.celebration-fireworks i:nth-child(1) { --x:-38vw; --y:-30vh; animation-delay:.1s; }.celebration-fireworks i:nth-child(2) { --x:34vw; --y:-32vh; animation-delay:.3s; }.celebration-fireworks i:nth-child(3) { --x:-28vw; --y:28vh; animation-delay:.55s; }.celebration-fireworks i:nth-child(4) { --x:31vw; --y:27vh; animation-delay:.8s; }.celebration-fireworks i:nth-child(5) { --x:-45vw; --y:4vh; animation-delay:1s; }.celebration-fireworks i:nth-child(6) { --x:44vw; --y:2vh; animation-delay:1.2s; }.celebration-fireworks i:nth-child(7) { --x:-18vw; --y:-38vh; animation-delay:.4s; }.celebration-fireworks i:nth-child(8) { --x:18vw; --y:36vh; animation-delay:.7s; }.celebration-fireworks i:nth-child(9) { --x:-8vw; --y:-42vh; animation-delay:1.05s; }.celebration-fireworks i:nth-child(10) { --x:8vw; --y:42vh; animation-delay:.2s; }.celebration-fireworks i:nth-child(11) { --x:-49vw; --y:-20vh; animation-delay:.9s; }.celebration-fireworks i:nth-child(12) { --x:48vw; --y:20vh; animation-delay:1.35s; }
+@keyframes firework { 0% { opacity: 0; transform: translate(0,0) scale(.2); } 15% { opacity: 1; } 60% { opacity: .9; transform: translate(var(--x), var(--y)) scale(1.35); } 100% { opacity: 0; transform: translate(calc(var(--x) * 1.12), calc(var(--y) * 1.12)) scale(.1); } }
+
+@media (max-width: 720px) { .celebration-stats { grid-template-columns: 1fr; }.celebration-card { max-height: 92dvh; overflow: auto; }.celebration-card h2 { font-size: 74px; } }
 
 @media (max-width: 900px) {
   .night-screen {
