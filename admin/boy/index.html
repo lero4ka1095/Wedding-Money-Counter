@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#fffaf7">
+  <title>Мальчик — управление</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body data-side="boy">
+  <main class="shell">
+    <div class="topbar"><div class="brand">Wedding Vote ✨</div><div class="pill"><span class="dot"></span> Сторона мальчика</div></div>
+    <section class="hero"><h1>Подарки<br>за мальчика</h1><p>Эта страница добавляет только сумму за мальчика.</p></section>
+    <section class="collection-control"><div><span id="collectionState" class="collection-state open">Сбор открыт</span><strong>Статус общего сбора</strong></div><button id="collectionToggle" class="link-btn">Закрыть сбор</button></section>
+    <section class="single-admin"><article class="card vote-card boy">
+      <div class="side-title"><span class="side-icon">👦</span> Мальчик</div><div id="sideTotal" class="total">0</div><div class="currency">сом</div>
+      <div class="quick"><button class="btn btn-boy" data-amount="50">+50</button><button class="btn btn-boy" data-amount="100">+100</button><button class="btn btn-boy" data-amount="200">+200</button><button class="btn btn-boy" data-amount="500">+500</button><button class="btn btn-boy" data-amount="1000">+1 000</button><button class="btn btn-boy" data-amount="2000">+2 000</button><button class="btn btn-boy" data-amount="5000">+5 000</button><button class="btn btn-boy" data-amount="10000">+10 000</button></div>
+      <div class="custom-row"><input id="customAmount" class="money-input" inputmode="numeric" enterkeyhint="done" type="number" min="1" step="1" autocomplete="off" placeholder="Своя сумма"><button id="addCustom" class="btn btn-boy">Добавить</button></div>
+    </article></section>
+    <section class="card section side-section correction"><h2>Скорректировать общий итог</h2><p>Укажите, какой должна быть итоговая сумма за мальчика.</p><div class="custom-row"><input id="targetTotal" class="money-input" inputmode="numeric" enterkeyhint="done" type="number" min="0" step="1" autocomplete="off" placeholder="Новая итоговая сумма"><button id="applyCorrection" class="btn btn-boy">Установить итог</button></div></section>
+    <section class="card section side-section"><div class="section-head"><h2>Последние внесения</h2></div><div id="history" class="history"></div></section>
+  </main><div id="toast" class="toast"></div><script type="module" src="../side-admin.js"></script>
+</body>
+</html>
