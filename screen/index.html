@@ -3,39 +3,38 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#fffaf7">
-  <title>Мальчик или девочка?</title>
+  <meta name="theme-color" content="#09080a">
+  <title>Андрей и Анастасия — Ползунки</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Cormorant+Infant:wght@500;600;700&family=Manrope:wght@600;700;800&family=Marck+Script&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
 </head>
-<body class="screen-page">
-  <main class="screen-wrap">
-    <header class="screen-title">
-      <div class="small">Baby shower · Голосование</div>
-      <h1>Мальчик или девочка?</h1>
+<body class="screen-page night-screen">
+  <div class="floral-wall floral-left" aria-hidden="true"><span>✿</span><span>❀</span><span>✿</span><span>❀</span></div>
+  <div class="floral-wall floral-right" aria-hidden="true"><span>❀</span><span>✿</span><span>❀</span><span>✿</span></div>
+  <main class="screen-wrap night-wrap">
+    <header class="night-header">
+      <div id="collectionStatus" class="collection-status open">Сбор открыт</div>
+      <div class="couple-names">Андрей <span>и</span> Анастасия</div>
+      <div class="contest-name">Ползунки</div>
     </header>
-
-    <section class="score-grid">
-      <article id="boyCard" class="score-card boy">
-        <div class="score-icon">👦</div>
-        <div class="score-label">Мальчик</div>
-        <div id="boyScore" class="score-number">0</div>
-        <div class="score-currency">сом</div>
+    <section class="night-board">
+      <article id="boyCard" class="score-card night-card boy">
+        <div class="baby-diamond boy-icon" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M20 13 10 20l8 13 7-5v23h14V28l7 5 8-13-10-7-6 7H26z"/></svg></div><div class="card-prefix">За будущего</div><div class="score-label">Мальчика</div><div class="score-gender boy-gender" aria-label="Мальчик"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="18" r="9"/><path d="M16 51c1-12 7-19 16-19s15 7 16 19M23 37l-5 8m23-8 5 8M32 32v19"/></svg></div>
+        <div id="boyScore" class="score-number">0</div><div class="score-currency">сом</div><div class="vote-call">♥ &nbsp; Голосуй за пацана!</div><img class="payment-qr" src="./boy-payment-qr.jpeg" alt="QR-код для голосования за будущего мальчика">
       </article>
-
-      <article id="girlCard" class="score-card girl">
-        <div class="score-icon">👧</div>
-        <div class="score-label">Девочка</div>
-        <div id="girlScore" class="score-number">0</div>
-        <div class="score-currency">сом</div>
+      <section class="leader-panel"><div class="leader-diamond">♥</div><div id="leaderStatus" class="leader-status">Пока ничья</div><div id="leaderDifference" class="leader-difference">Счёт равный</div></section>
+      <article id="girlCard" class="score-card night-card girl">
+        <div class="baby-diamond girl-icon" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M24 12h16l3 13 12 25H9l12-25zM19 54h26v5H19z"/></svg></div><div class="card-prefix">За будущую</div><div class="score-label">Девочку</div><div class="score-gender girl-gender" aria-label="Девочка"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="17" r="8"/><path d="M18 52c2-12 7-19 14-19s12 7 14 19M32 33v19M25 40l-6 7m20-7 6 7"/><path d="M21 20c0-10 22-11 22 0"/></svg></div>
+        <div id="girlScore" class="score-number">0</div><div class="score-currency">сом</div><div class="vote-call">♥ &nbsp; Голосуй за принцессу!</div><img class="payment-qr" src="./girl-payment-qr.jpeg" alt="QR-код для голосования за будущую девочку">
       </article>
     </section>
-
-    <div class="progress" aria-hidden="true">
-      <div id="boyProgress" class="progress-boy" style="width:50%"></div>
-      <div id="girlProgress" class="progress-girl" style="width:50%"></div>
-    </div>
+    <footer id="lastPayment" class="last-payment" aria-live="polite">
+      <span class="payment-label">Последний перевод</span>
+      <strong id="lastPaymentAmount" class="payment-amount">—</strong>
+    </footer>
   </main>
-
   <script type="module" src="./screen.js"></script>
 </body>
 </html>

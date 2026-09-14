@@ -1,10 +1,18 @@
 import { db, ref, onValue } from "../firebase.js";
 
 const paymentsRef = ref(db, "payments");
+const collectionOpenRef = ref(db, "settings/collectionOpen");
 const fmt = new Intl.NumberFormat("ru-RU");
 
 let previous = { boy: 0, girl: 0 };
 let initialized = false;
+
+onValue(collectionOpenRef, (snap) => {
+  const isOpen = snap.val() !== false;
+  const status = document.getElementById("collectionStatus");
+  status.textContent = isOpen ? "Сбор открыт" : "Сбор закрыт";
+  status.className = `collection-status ${isOpen ? "open" : "closed"}`;
+});
 
 function animate(id) {
   const el = document.getElementById(id);
@@ -15,10 +23,11 @@ function animate(id) {
 
 onValue(paymentsRef, (snap) => {
   const raw = snap.val() || {};
+  const payments = Object.entries(raw).map(([id, value]) => ({ id, ...value }));
   let boy = 0;
   let girl = 0;
 
-  for (const p of Object.values(raw)) {
+  for (const p of payments) {
     const amount = Number(p.amount || 0);
     if (p.side === "boy") boy += amount;
     if (p.side === "girl") girl += amount;
@@ -27,11 +36,38 @@ onValue(paymentsRef, (snap) => {
   document.getElementById("boyScore").textContent = fmt.format(boy);
   document.getElementById("girlScore").textContent = fmt.format(girl);
 
+  const lastPayment = payments
+    .filter((payment) => (payment.side === "boy" || payment.side === "girl") && payment.type !== "adjustment")
+    .sort((a, b) => Number(b.createdAt || 0) - Number(a.createdAt || 0) || b.id.localeCompare(a.id))[0];
+  const lastPaymentEl = document.getElementById("lastPayment");
+  const lastPaymentAmount = document.getElementById("lastPaymentAmount");
+  if (lastPayment) {
+    const amount = Number(lastPayment.amount || 0);
+    lastPaymentAmount.textContent = `+${fmt.format(amount)} сом`;
+    lastPaymentEl.className = `last-payment last-payment-${lastPayment.side}`;
+  } else {
+    lastPaymentAmount.textContent = "Пока нет переводов";
+    lastPaymentEl.className = "last-payment";
+  }
+
   const total = boy + girl;
   const boyPct = total ? (boy / total) * 100 : 50;
   const girlPct = total ? (girl / total) * 100 : 50;
-  document.getElementById("boyProgress").style.width = `${boyPct}%`;
-  document.getElementById("girlProgress").style.width = `${girlPct}%`;
+  const leader = document.getElementById("leaderStatus");
+  const difference = document.getElementById("leaderDifference");
+  if (boy > girl) {
+    leader.textContent = "Впереди Андреевич";
+    leader.className = "leader-status boy-leading";
+    difference.textContent = `Разница ${fmt.format(boy - girl)} сом`;
+  } else if (girl > boy) {
+    leader.textContent = "Впереди Андреевна";
+    leader.className = "leader-status girl-leading";
+    difference.textContent = `Разница ${fmt.format(girl - boy)} сом`;
+  } else {
+    leader.textContent = "Пока ничья";
+    leader.className = "leader-status";
+    difference.textContent = "Счёт равный";
+  }
 
   if (initialized) {
     if (boy > previous.boy) animate("boyCard");

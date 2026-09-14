@@ -4,7 +4,13 @@
     "payments": {
       ".write": true,
       "$paymentId": {
-        ".validate": "!newData.exists() || (newData.hasChildren(['side','amount']) && (newData.child('side').val() === 'boy' || newData.child('side').val() === 'girl') && newData.child('amount').isNumber() && newData.child('amount').val() > 0 && newData.child('amount').val() <= 10000000)"
+        ".validate": "!newData.exists() || (newData.hasChildren(['side','amount']) && (newData.child('side').val() === 'boy' || newData.child('side').val() === 'girl') && newData.child('amount').isNumber() && newData.child('amount').val() !== 0 && newData.child('amount').val() >= -10000000 && newData.child('amount').val() <= 10000000)"
+      }
+    },
+    "settings": {
+      "collectionOpen": {
+        ".write": true,
+        ".validate": "newData.isBoolean()"
       }
     }
   }
