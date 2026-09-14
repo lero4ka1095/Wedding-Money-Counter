@@ -1262,7 +1262,7 @@ button, input { font: inherit; }
   .night-header .couple-names { transform: translateY(-8px); }
   .night-header .contest-name { margin-top: 18px; }
   .night-card {
-    width: min(100%, 420px);
+    width: min(100%, clamp(330px, 25vw, 480px));
     height: 100%;
     padding: 8px 14px 16px;
     justify-content: flex-start;
@@ -1275,10 +1275,10 @@ button, input { font: inherit; }
   .night-card .score-label { margin-top: 4px; font-size: clamp(30px, 2vw, 42px); }
   .score-gender { height: clamp(28px, 1.8vw, 34px); margin-top: 4px; }
   .score-gender svg { width: clamp(26px, 1.6vw, 32px); height: clamp(26px, 1.6vw, 32px); }
-  .night-card .score-number { margin-top: 8px; font-size: clamp(56px, 3.8vw, 72px); }
+  .night-card .score-number { margin-top: 8px; font-size: clamp(70px, 5vw, 96px); }
   .night-card .score-currency { margin-top: 14px; font-size: clamp(16px, 1.1vw, 20px); }
   .night-card .vote-call { margin: 10px auto 0; padding: 6px 12px; font-size: clamp(10px, .75vw, 14px); }
-  .payment-qr { width: min(71.8%, 33dvh); margin: 12px auto 14px; transform: none; }
+  .payment-qr { width: min(76%, 33dvh); margin: 12px auto 14px; transform: none; }
 }
 
 /* A tall fullscreen viewport centres the fixed card composition instead of stretching its gaps. */
@@ -1289,18 +1289,18 @@ button, input { font: inherit; }
 /* High-DPI 4K displays expose a smaller CSS viewport; keep cards proportional to Full HD. */
 @media (min-width: 1000px) and (min-aspect-ratio: 4 / 3) and (min-resolution: 2dppx) {
   .night-card {
-    width: min(100%, 22vw);
+    width: min(100%, 25vw);
     justify-content: center;
   }
 }
 
 @media (min-width: 1000px) and (min-aspect-ratio: 4 / 3) {
   .night-wrap {
-    grid-template-rows: 13dvh 63dvh 6dvh;
+    grid-template-rows: 11dvh 67dvh 4dvh;
     align-content: start;
     row-gap: 1dvh;
   }
-  .night-board { height: 63dvh; }
+  .night-board { height: 67dvh; }
   .last-payment { margin-top: 0; }
   .leader-panel { padding-inline: 0; }
   .leader-panel .leader-status {
